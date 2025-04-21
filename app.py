@@ -1,11 +1,22 @@
+import os
+import gdown
 from flask import Flask, render_template, request
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import numpy as np
-import os
 
 app = Flask(__name__)
-model = load_model(r'model.h5')  # Make sure the path is correct
+
+# Google Drive file ID (replace with your actual ID)
+file_id = '1L_vfAQyWi9wl2WRH-hXu6xrtujDtg9ed' 
+url = f'https://drive.google.com/uc?export=download&id={file_id}'
+
+# Download the model from Google Drive
+gdown.download(url, 'ddd.keras', quiet=False)
+
+# Load the model after downloading
+model = load_model('ddd.keras')
+
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
