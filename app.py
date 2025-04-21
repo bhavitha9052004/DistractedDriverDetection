@@ -5,7 +5,7 @@ import numpy as np
 import os
 
 app = Flask(__name__)
-model = load_model(r'ddd.keras')  # Make sure the path is correct
+model = load_model(r'model.h5')  # Make sure the path is correct
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
