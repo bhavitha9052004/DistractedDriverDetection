@@ -1,6 +1,5 @@
 flask
 tensorflow
 keras
-os
 numpy
 Pillow
