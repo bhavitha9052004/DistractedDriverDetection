@@ -8,7 +8,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Google Drive file ID (replace with your actual ID)
-file_id = '1zg8RlG0klNJbcz_BgZRjsVxHo_DNjMQK' 
+file_id = '1L_vfAQyWi9wl2WRH-hXu6xrtujDtg9ed' 
 url = f'https://drive.google.com/uc?export=download&id={file_id}'
 
 # Download the model from Google Drive
