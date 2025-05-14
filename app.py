@@ -8,7 +8,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Google Drive file ID (replace with your actual ID)
-file_id = '1L_vfAQyWi9wl2WRH-hXu6xrtujDtg9ed' 
+file_id = '1zg8RlG0klNJbcz_BgZRjsVxHo_DNjMQK' 
 url = f'https://drive.google.com/uc?export=download&id={file_id}'
 
 # Download the model from Google Drive
@@ -44,4 +44,5 @@ def index():
     return render_template('index.html', prediction=prediction)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # 5000 is a fallback for local dev
+    app.run(host="0.0.0.0", port=port)
