@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bootstrap Navbar with Drawer</title>
+  <title>Driver Behavior Prediction</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
   <style>
-    /* Apply the background image to the entire page (body) */
     body {
-      background-image: url("{{ url_for('static', filename='images/car_background.jpg') }}");
-      background-size: cover;
-      background-position: center;
+      background-color: #0b0c10;
+      color: #f1f1f1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 1.3rem;
       margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-     /* Navbar */
+    /* Navbar */
     .navbar-custom {
       background: rgba(10, 10, 10, 0.85);
       backdrop-filter: blur(6px);
@@ -33,7 +35,7 @@
     .navbar-brand {
       display: flex;
       align-items: center;
-     
+      
       cursor: default;
       user-select: none;
       font-weight: 700;
@@ -110,54 +112,112 @@
       border-radius: 8px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
     }
-    /* Hero Section (same background image, full height) */
-    .hero {
-      height: 450px;
-      display: flex;
-      justify-content: flex-start; /* Align content to the left */
-      align-items: center; /* Vertically center content */
-      color: white;
-      padding: 0 20px; /* Padding for the text */
+
+    /* Main Container */
+    .container-custom {
+      background-color: #1f2833;
+      border-radius: 15px;
+      padding: 3rem 3.5rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+      margin: 3rem auto 4rem;
+      max-width: 950px;
+      flex-grow: 1;
     }
 
-    .hero h1 {
-      font-size: 4.5rem;
-      font-weight: bold;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for readability */
+    label {
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+      display: block;
+      color: #66fcf1;
     }
 
-    .hero-text {
-      max-width: 43%; /* Text will take up to 50% of the hero section */
+    input[type="file"] {
+      font-size: 1.1rem;
+      padding: 0.6rem 0.75rem;
+      background-color: #0b0c10;
+      color: #f1f1f1;
+      border: 1px solid #45a29e;
+      border-radius: 8px;
+      width: 100%;
+      transition: border-color 0.3s ease;
     }
 
-    .glow-button {
-  background-color: #66fcf1;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  box-shadow: 0 0 5px #66fcf1;
-  animation: glow 1.5s infinite ease-in-out;
+    input[type="file"]:focus {
+      border-color: #66fcf1;
+      box-shadow: 0 0 10px #66fcf1;
+      outline: none;
+      background-color: #0b0c10;
+    }
+
+    .btn-dark-custom {
+      background-color: #45a29e;
+      color: #0b0c10;
+      font-size: 1.3rem;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: none;
+      margin-top: 1.6rem;
+      width: 100%;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 0 10px #45a29e;
+    }
+
+    .btn-dark-custom:hover {
+      background-color: #379287;
+      box-shadow: 0 0 15px #379287;
+      color: #e0f7f7;
+    }
+
+    .prediction-box {
+      background-color: #0b0c10;
+      color: #66fcf1;
+      padding: 2rem 2.5rem;
+      border-radius: 15px;
+      margin-top: 3rem;
+      box-shadow: 0 0 20px rgba(102, 252, 241, 0.7);
+      font-size: 1.4rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .img-preview {
+      max-height: 320px;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+      margin-top: 1.6rem;
+      width: 100%;
+    }
+
+    .plot-preview {
+  max-height: 600px;  /* increased from 400px */
+  width: 100%;
+  margin-top: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  object-fit: contain;
 }
 
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 5px #66fcf1;
-  }
-  50% {
-    box-shadow: 0 0 20px #66fcf1;
-  }
-  100% {
-    box-shadow: 0 0 5px #66fcf1;
-  }
-}
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .container-custom {
+        margin: 1.5rem 1rem 3rem;
+        padding: 2rem 1.5rem;
+      }
+
+      .navbar-custom {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+      }
+    }
   </style>
 </head>
-
 <body>
 
   <!-- Navbar -->
- <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark navbar-custom px-3 py-2">
     <div class="container-fluid">
       <!-- Logo and Project Name -->
@@ -207,30 +267,38 @@
     </div>
   </div>
 
+  <!-- Main Content -->
+  <main class="container container-custom">
+    <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data" id="uploadForm">
 
+      <label for="file">Choose Driver Image</label>
+      <input type="file" name="file" id="file" required />
 
-  <!-- Hero Section with Background Image -->
-  <div class="hero">
-    <div class="hero-text">
-      <h1 style="margin-top: 220px;">Welcome to Distracted Driver Detection</h1>
-      <h2 style="margin-top: 40px;">See It. Detect It. Prevent It.</h2>
+      <button type="submit" class="btn btn-dark-custom">Predict Driver Behavior</button>
+    </form>
 
-       <p style="margin-top: 20px; font-size: 25px;"> Distracted driving is a leading cause of accidents. With our innovative tool, simply upload a driver’s image, and instantly know if their attention is on the road or diverted.
-        
-        Using advanced image analysis and machine learning, we help detect distracted driving early, preventing accidents before they happen.</p>
-        
-       <p style="margin-top: 20px; font-size: 25px;"> <b>Stay Safe. Stay Focused.</b></p>
+    {% if prediction %}
+      <section class="prediction-box" aria-live="polite">
+        <h3>Prediction: {{ prediction }}</h3>
 
-       <a href="{{ url_for('upload') }}" class="btn btn-success mt-4 px-3 py-3 glow-button" style="background-color: #3cbdb5; border: none; font-size: 30px;font-weight:400;">
-        Get Started →
-      </a>
-    </div>
-  </div>
+        {% if img_path %}
+          <div>
+            <h5 class="mt-4">Uploaded Image:</h5>
+            <img src="{{ img_path }}" alt="Uploaded Driver Image" class="img-preview" />
+          </div>
+        {% endif %}
 
-  
-  <!-- Bootstrap JS (requires Popper) -->
+        {% if plot_path %}
+          <div>
+            <h5 class="mt-4">Prediction Confidence Bar Plot:</h5>
+            <img src="{{ plot_path }}" alt="Confidence Bar Plot" class="plot-preview" />
+          </div>
+        {% endif %}
+      </section>
+    {% endif %}
+  </main>
+
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
-
 </html>

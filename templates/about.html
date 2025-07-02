@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - Distracted Driver Detection</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      background: #0b0c10;
+      color: #f1f1f1;
+      font-size: 1.3rem;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(to right, #0b0c10, #1f2833);
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #66fcf1;
+    }
+
+    .hero p {
+      font-size: 1.6rem;
+      color: #c5c6c7;
+    }
+
+    .section {
+      background-color: #1f2833;
+      border-radius: 15px;
+      padding: 50px;
+      margin: 40px auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: #66fcf1;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #45a29e;
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: #45a29e;
+      margin-right: 15px;
+    }
+
+    .feature-box {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #0b0c10;
+      font-size: 1.2rem;
+      color: #c5c6c7;
+      border-top: 1px solid #222;
+    }
+
+    a {
+      color: #66fcf1;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .navbar-custom {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.offcanvas-body a.nav-link {
+  transition: all 0.2s ease-in-out;
+}
+
+.offcanvas-body a.nav-link:hover {
+  color: #66fcf1;
+  text-shadow: 0 0 5px #66fcf1;
+}
+
+  </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom px-3 py-2">
+  <div class="container-fluid">
+    <!-- Logo and Project Name -->
+    <div class="navbar-brand d-flex align-items-center fw-bold" style="font-size: 1.8rem;">
+      <img src="{{ url_for('static', filename='images/ddd_logo.png') }}"
+           alt="Logo"
+           class="rounded-circle me-2"
+           style="height: 55px; width: 55px; cursor: pointer;"
+           data-bs-toggle="modal"
+           data-bs-target="#logoModal" />
+      DISTRACTED DRIVER DETECTION
+    </div>
+
+    <!-- Always Visible Offcanvas Toggle Button -->
+    <button class="btn btn-outline-light ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#drawer" aria-controls="drawer">
+      ☰
+    </button>
+  </div>
+</nav>
+
+<!-- Offcanvas Drawer -->
+<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="drawer" aria-labelledby="drawerLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="drawerLabel">Navigation</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column gap-3 fs-5">
+    <a class="nav-link text-white" href="{{ url_for('home') }}">🏠 Home</a>
+    <a class="nav-link text-white" href="{{ url_for('about') }}">ℹ️ About</a>
+    <a class="nav-link text-white" href="{{ url_for('upload') }}">📷 Add Image</a>
+    <a class="nav-link text-white" href="{{ url_for('aware') }}">🚘 Driving Awareness</a>
+  </div>
+</div>
+
+<!-- Logo Modal -->
+<div class="modal fade" id="logoModal" tabindex="-1" aria-labelledby="logoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="{{ url_for('static', filename='images/ddd_logo.png') }}"
+             alt="Enlarged Logo"
+             class="img-fluid rounded shadow-lg"
+             style="max-height: 300px;" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>About This Project</h1>
+    <p class="mt-4">Empowering safer roads through AI-powered distraction detection.</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+
+    <!-- Project Overview -->
+    <div class="section">
+      <h2><i class="bi bi-info-circle-fill feature-icon"></i>What is Distracted Driver Detection?</h2>
+      <p>
+        This project leverages deep learning to <span class="highlight">identify and classify driver distractions</span> from images. Our goal is to promote road safety by alerting or informing about potentially dangerous behaviors behind the wheel—such as texting, drinking, or reaching behind while driving.
+      </p>
+    </div>
+
+    <!-- How it Works -->
+    <div class="section">
+      <h2><i class="bi bi-cpu-fill feature-icon"></i>How It Works</h2>
+
+      <div class="feature-box">
+        <i class="bi bi-image-fill feature-icon"></i>
+        <div>
+          <strong>Image Input:</strong> Users upload images of a driver captured inside a vehicle.
+        </div>
+      </div>
+
+      <div class="feature-box">
+        <i class="bi bi-diagram-3-fill feature-icon"></i>
+        <div>
+          <strong>Model Prediction:</strong> A VGG16-based Convolutional Neural Network processes the image to detect behavior.
+        </div>
+      </div>
+
+      <div class="feature-box">
+        <i class="bi bi-bar-chart-fill feature-icon"></i>
+        <div>
+          <strong>Results Display:</strong> Users get the predicted behavior with a confidence chart to help visualize model certainty.
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="section">
+      <h2><i class="bi bi-shield-check feature-icon"></i>Our Mission</h2>
+      <p>
+        The mission of the Distracted Driver Detection project is to <span class="highlight">increase awareness</span> and provide accessible tools to analyze driving behavior using AI.
+        Whether you're a road safety researcher, developer, educator, or simply a concerned driver, this tool can contribute to safer roads and help curb the rising problem of distracted driving.
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Distracted Driver Detection | Powered by AI for Safer Roads
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

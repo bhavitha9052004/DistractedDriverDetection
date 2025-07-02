@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Driving Awareness - Distracted Driver Detection</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      background-color: #0b0c10;
+      color: #f1f1f1;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 1.3rem;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(to right, #0b0c10, #1f2833);
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      color: #66fcf1;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      color: #c5c6c7;
+    }
+
+    .section {
+      background-color: #1f2833;
+      border-radius: 15px;
+      padding: 50px;
+      margin: 40px auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    }
+
+    .section h2 {
+      font-size: 2.2rem;
+      color: #66fcf1;
+      margin-bottom: 30px;
+    }
+
+    .tip {
+      margin-bottom: 25px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .tip i {
+      font-size: 2rem;
+      color: #45a29e;
+      margin-right: 15px;
+      margin-top: 5px;
+    }
+
+    .tip p {
+      margin: 0;
+      color: #dcdcdc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #0b0c10;
+      color: #c5c6c7;
+      font-size: 1.2rem;
+      border-top: 1px solid #222;
+    }
+
+    a {
+      color: #66fcf1;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    
+    .navbar-custom {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.offcanvas-body a.nav-link {
+  transition: all 0.2s ease-in-out;
+}
+
+.offcanvas-body a.nav-link:hover {
+  color: #66fcf1;
+  text-shadow: 0 0 5px #66fcf1;
+}
+  </style>
+</head>
+<body>
+
+        <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom px-3 py-2">
+  <div class="container-fluid">
+    <!-- Logo and Project Name -->
+    <div class="navbar-brand d-flex align-items-center fw-bold" style="font-size: 1.8rem;">
+      <img src="{{ url_for('static', filename='images/ddd_logo.png') }}"
+           alt="Logo"
+           class="rounded-circle me-2"
+           style="height: 55px; width: 55px; cursor: pointer;"
+           data-bs-toggle="modal"
+           data-bs-target="#logoModal" />
+      DISTRACTED DRIVER DETECTION
+    </div>
+
+    <!-- Always Visible Offcanvas Toggle Button -->
+    <button class="btn btn-outline-light ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#drawer" aria-controls="drawer">
+      ☰
+    </button>
+  </div>
+</nav>
+<!-- Offcanvas Drawer -->
+<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="drawer" aria-labelledby="drawerLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="drawerLabel">Navigation</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column gap-3 fs-5">
+    <a class="nav-link text-white" href="{{ url_for('home') }}">🏠 Home</a>
+    <a class="nav-link text-white" href="{{ url_for('about') }}">ℹ️ About</a>
+    <a class="nav-link text-white" href="{{ url_for('upload') }}">📷 Add Image</a>
+    <a class="nav-link text-white" href="{{ url_for('aware') }}">🚘 Driving Awareness</a>
+  </div>
+</div>
+
+<!-- Logo Modal -->
+<div class="modal fade" id="logoModal" tabindex="-1" aria-labelledby="logoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="{{ url_for('static', filename='images/ddd_logo.png') }}"
+             alt="Enlarged Logo"
+             class="img-fluid rounded shadow-lg"
+             style="max-height: 300px;" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Driving Awareness</h1>
+    <p>Stay focused. Drive safe. Every decision behind the wheel matters.</p>
+  </div>
+
+  <div class="container">
+    <!-- Awareness Section -->
+    <div class="section">
+      <h2><i class="bi bi-exclamation-triangle-fill"></i> The Dangers of Distracted Driving</h2>
+      <p>
+        Distracted driving is one of the leading causes of road accidents worldwide. A moment of looking away from the road — whether it's texting, eating, or adjusting the radio — can lead to life-changing consequences.
+      </p>
+      <p>
+        The purpose of this system is not just to detect distractions, but to educate and spread awareness about how we can all contribute to safer roads.
+      </p>
+    </div>
+
+    <!-- Safety Tips -->
+    <div class="section">
+      <h2><i class="bi bi-shield-check"></i> Tips to Stay Focused</h2>
+
+      <div class="tip">
+        <i class="bi bi-phone-slash-fill"></i>
+        <p><strong>Put your phone away:</strong> Use hands-free options or turn off notifications while driving.</p>
+      </div>
+
+      <div class="tip">
+        <i class="bi bi-cup-straw"></i>
+        <p><strong>Avoid eating or drinking:</strong> Eat before driving or take breaks if you're on a long trip.</p>
+      </div>
+
+      <div class="tip">
+        <i class="bi bi-people-fill"></i>
+        <p><strong>Manage passengers:</strong> Keep conversations light and brief, especially when navigating tough roads.</p>
+      </div>
+
+      <div class="tip">
+        <i class="bi bi-music-note-beamed"></i>
+        <p><strong>Pre-set your entertainment:</strong> Set your playlist, podcast, or navigation before you start driving.</p>
+      </div>
+
+      <div class="tip">
+        <i class="bi bi-moon-stars-fill"></i>
+        <p><strong>Don't drive tired:</strong> Fatigue is as dangerous as distraction. Rest well before driving.</p>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="section text-center">
+      <h2><i class="bi bi-activity"></i> Join the Mission</h2>
+      <p>
+        Share this project. Spread the word. Let’s build a future with fewer accidents and more mindful drivers.
+      </p>
+      <p>
+        <a href="{{ url_for('upload') }}" class="btn btn-outline-info btn-lg mt-3">Try Our Detection Tool</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Distracted Driver Detection — Awareness Saves Lives.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
