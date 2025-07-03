@@ -1,6 +1,5 @@
 flask
-tensorflow
-keras
 numpy
-Pillow
-gdown==4.4.0
+scikit-learn
+tensorflow==2.19.0
+matplotlib
