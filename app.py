@@ -12,7 +12,7 @@ from uuid import uuid4
 
 app = Flask(__name__)
 
-model = keras.models.load_model("ddd.keras")  # Make sure the path is correct
+model =load_model("ddd.keras")  # Make sure the path is correct
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
