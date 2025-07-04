@@ -11,6 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy entire project
 COPY . .
 
+RUN ls -lh
+
 # Expose the port
 EXPOSE 5000
 
