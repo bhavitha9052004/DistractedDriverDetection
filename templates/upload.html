@@ -279,7 +279,7 @@
 
     {% if prediction %}
   <section class="prediction-box" aria-live="polite">
-    {% if prediction.lower() == 'safe driving' %}
+    {% if prediction|lower|trim == 'safe driving' %}
       <div style="font-size: 2rem; font-weight: 800; color: #00ff99; margin-bottom: 1rem;">
         NOT DISTRACTED
       </div>
@@ -289,6 +289,7 @@
       </div>
     {% endif %}
     <h3>Prediction: {{ prediction }}</h3>
+
 
     {% if img_path %}
       <div>
