@@ -7,12 +7,21 @@ import os
 import matplotlib
 matplotlib.use('Agg')  # Use a non-GUI backend suitable for server use
 import matplotlib.pyplot as plt
+import requests
+import tempfile
 
 from uuid import uuid4
 
 app = Flask(__name__)
 
-model =load_model("ddd.keras")  # Make sure the path is correct
+url = "https://huggingface.co/CSEHema/distracted-driver-detection/resolve/main/ddd.keras"
+temp_model_file = tempfile.NamedTemporaryFile(suffix=".keras", delete=False)
+with requests.get(url, stream=True) as r:
+    for chunk in r.iter_content(chunk_size=8192):
+        temp_model_file.write(chunk)
+temp_model_file.close()
+
+model = load_model(temp_model_file.name)
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -89,7 +98,6 @@ def upload():
     return render_template('upload.html')
 @app.route('/about')
 def about():
-    print(">>> DEBUG: /about route reached")
     return render_template('about.html')
 
 @app.route('/aware')
@@ -97,4 +105,4 @@ def aware():
     return render_template('aware.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
