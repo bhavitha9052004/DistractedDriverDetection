@@ -15,7 +15,7 @@ from uuid import uuid4
 
 app = Flask(__name__)
 
-url = "https://huggingface.co/CSEHema/distracted-driver-detection/resolve/main/ddd.keras"
+url = "https://huggingface.co/CSEHema/distracted-driver-detection/resolve/main/ddd.tflite"
 temp_model_file = tempfile.NamedTemporaryFile(suffix=".tflite", delete=False)
 with requests.get(url, stream=True) as r:
     for chunk in r.iter_content(chunk_size=8192):
