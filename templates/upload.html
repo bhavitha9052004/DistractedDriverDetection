@@ -278,24 +278,34 @@
     </form>
 
     {% if prediction %}
-      <section class="prediction-box" aria-live="polite">
-        <h3>Prediction: {{ prediction }}</h3>
-
-        {% if img_path %}
-          <div>
-            <h5 class="mt-4">Uploaded Image:</h5>
-            <img src="{{ img_path }}" alt="Uploaded Driver Image" class="img-preview" />
-          </div>
-        {% endif %}
-
-        {% if plot_path %}
-          <div>
-            <h5 class="mt-4">Prediction Confidence Bar Plot:</h5>
-            <img src="{{ plot_path }}" alt="Confidence Bar Plot" class="plot-preview" />
-          </div>
-        {% endif %}
-      </section>
+  <section class="prediction-box" aria-live="polite">
+    {% if prediction.lower() == 'safe driving' %}
+      <div style="font-size: 2rem; font-weight: 800; color: #00ff99; margin-bottom: 1rem;">
+        NOT DISTRACTED
+      </div>
+    {% else %}
+      <div style="font-size: 2rem; font-weight: 800; color: #ff4c4c; margin-bottom: 1rem;">
+        DISTRACTED
+      </div>
     {% endif %}
+    <h3>Prediction: {{ prediction }}</h3>
+
+    {% if img_path %}
+      <div>
+        <h5 class="mt-4">Uploaded Image:</h5>
+        <img src="{{ img_path }}" alt="Uploaded Driver Image" class="img-preview" />
+      </div>
+    {% endif %}
+
+    {% if plot_path %}
+      <div>
+        <h5 class="mt-4">Prediction Confidence Bar Plot:</h5>
+        <img src="{{ plot_path }}" alt="Confidence Bar Plot" class="plot-preview" />
+      </div>
+    {% endif %}
+  </section>
+{% endif %}
+
   </main>
 
   <!-- Bootstrap JS -->
