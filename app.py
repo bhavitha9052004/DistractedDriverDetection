@@ -3,6 +3,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.preprocessing import image
 import numpy as np
+import tensorflow as tf
 import os
 import matplotlib
 matplotlib.use('Agg')  # Use a non-GUI backend suitable for server use
@@ -15,13 +16,24 @@ from uuid import uuid4
 app = Flask(__name__)
 
 url = "https://huggingface.co/CSEHema/distracted-driver-detection/resolve/main/ddd.keras"
-temp_model_file = tempfile.NamedTemporaryFile(suffix=".keras", delete=False)
+temp_model_file = tempfile.NamedTemporaryFile(suffix=".tflite", delete=False)
 with requests.get(url, stream=True) as r:
     for chunk in r.iter_content(chunk_size=8192):
         temp_model_file.write(chunk)
 temp_model_file.close()
 
-model = load_model(temp_model_file.name)
+# Load with TFLite
+interpreter = tf.lite.Interpreter(model_path=temp_model_file.name)
+interpreter.allocate_tensors()
+
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
+def model_predict(img_array):
+    interpreter.set_tensor(input_details[0]['index'], img_array)
+    interpreter.invoke()
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    return output_data
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -29,12 +41,6 @@ CLASS_NAMES = ['Safe Driving', 'Texting - Right', 'Talking on the Phone - Right'
                'Texting - Left', 'Talking on the Phone - Left', 'Operating the Radio',
                'Drinking', 'Reaching Behind', 'Hair and Makeup', 'Talking to Passenger']
 
-def model_predict(img_path):
-    img = load_img(img_path, target_size=(224, 224))
-    img_array = img_to_array(img) / 255.0
-    img_array = np.expand_dims(img_array, axis=0)
-    preds = model.predict(img_array)
-    return CLASS_NAMES[np.argmax(preds)]
 
 @app.route('/')
 def home():
@@ -63,8 +69,9 @@ def upload():
             img = image.load_img(img_path, target_size=(224, 224))
             img_array = image.img_to_array(img)
             img_array = np.expand_dims(img_array, axis=0) / 255.0
-            prediction = model.predict(img_array)
-            probs = prediction.flatten()
+            # NEW
+            probs = model_predict(img_array).flatten()
+
 
             # Get predicted class
             predicted_class = CLASS_NAMES[np.argmax(probs)]
